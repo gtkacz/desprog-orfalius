@@ -1,10 +1,36 @@
-Título
+Gravity Sort
 ======
 
-Subtítulo
+Introdução
 ---------
 
-Para criar um parágrafo, basta escrever um texto contínuo, sem pular linhas.
+Em meio a algoritmos cada vez mais complexos e 
+
+
+
+não são raras às vezes que cientistas se voltam para 
+
+
+
+
+
+
+
+O ábaco é um instrumento matemático amplamente utilizado na antiguidade parar realizar operações matemáticas simples mas absolutamente relevantes para a época, tais como
+
+Embora útil, para diversos cálculos, não iremos utilizar sua lógica  e os elementos que o constituem: suas contas.
+
+para representá-las será utilizado o seguinte referencial
+
+
+
+⚫〇
+
+┌------┐
+
+| -⚫
+
+└------┘
 
 Você também pode criar
 

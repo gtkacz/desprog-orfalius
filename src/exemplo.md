@@ -99,7 +99,7 @@ int abacus_f(int[] input, int n):
 
 Note que, em escopo geral, as funções `abacus_c` e `abacus_f` são, respectivamente, as funções `len` e `max`.
 
-Com ambos os valores disponíveis podemos por fim, contruir o ábaco:
+Com ambos os valores disponíveis podemos por fim, contruir o ábaco, inicializando uma matriz $$M_{cf} $$ com zeros:
 
 ```c
 int c = abacus_c(input, n);
@@ -107,15 +107,32 @@ int f = abacus_f(input, n);
 int abacus[c][f];
 ```
 
-Partindo agora para a segunda parte, devemos distribuir as contas referentes a cada um dos valores do array inicial, de tal forma que a quantidade de contas verticalmente empilhadas corresponda ao valor do array inicial.
+Partindo agora para a segunda parte, devemos distribuir as contas referentes a cada um dos valores do array inicial, de tal forma que a quantidade de contas verticalmente empilhadas corresponda ao valor do a rray inicial. A função  que descreveria esse procedimento está descrita abaixo:
 
 ```c
 void distribute_beads(int[] input, int[][] *abacus, int c, int f) {
-    for (int c)
 }
 ```
 
-#TODO: Pergunta: por que o valor de n não foi passado para a função?
+#TODO:
+
+Pergunta: por que o valor de n não foi passado para a função?
+
+Resposta: por que c=n
+
+Sabemos que o primeiro loop é tal que acessa cada um dos valores do array inicial e cada um das colunas da matriz do ábaco, portanto sua implementação é 
+
+
+
+```c
+for (int i = 0; i < c; i++) {
+    int val = input[i]
+    for (int j = val; j > 0; j--) {
+        abacus[j][i] = 1;
+	}
+    
+}
+```
 
 
 

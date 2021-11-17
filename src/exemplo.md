@@ -118,20 +118,18 @@ int f = abacus_f(input, n);
 int abacus[c][f];
 ```
 
+
+
+Distribuindo Contas
+---------
+
 Partindo agora para a segunda parte, devemos distribuir as contas referentes a cada um dos valores do array inicial, de tal forma que a quantidade de contas verticalmente empilhadas corresponda ao valor do a rray inicial. O cabeçalho da função que descreveria esse procedimento está descrita abaixo:
 
 ````c
-void distribute_beads(int c, int f, int *input, int abacus[c][f] ) {
+void distribute_beads(int c, int f, int abacus[c][f], int *input) {
 
 }
 ````
-
-
-
-```c
-void distribute_beads(int c, int f, int *input, int abacus[MAX_SIZE][MAX_SIZE] ) {
-}
-```
 
 ??? Pergunta
 
@@ -257,11 +255,19 @@ Nada muito difícil não é mesmo? Por fim, basta aplicarmos "gravidade" à matr
 
 Mas... como implementamos "gravidade" mesmo?
 
+Imaginando a matriz que representa um ábaco
 
 
 
+??? Pergunta
 
+Você conseguiria pensar em uma implementação na qual garantisse a complexidade teórica $$O(1)$$ ?
 
+::: Gabarito
+Este é um exemplo de gabarito, entre `md :::`.
+:::
+
+???
 
 Sabemos que o primeiro loop é tal que acessa cada um dos valores do array inicial e cada um das colunas da matriz do ábaco, portanto sua implementação é 
 
@@ -280,41 +286,106 @@ for (int i = 0; i < c; i++) {
 
 
 ```c
+// Online C compiler to run C program online
 #include <stdio.h>
+#define MAX_SIZE 128
 
-int abacus_c(int[] input, int n){
+int abacus_c(int *input, int n){
 	int c = 0;
 	for (int i = 0; i < n; i++) {
         c ++;
     }
-	return n
+	return n;
 }
 
-int abacus_f(int[] input, int n) {
+int abacus_f(int *input, int n) {
 	int f = 0;
 	for (int i = 0; i < n; i++) {
         if (input[i] > f) {
-            f = input[i]
+            f = input[i];
 		}
     }
 	return f;
 }
 
-void distribute_beads(int[] input, int[MAX_SIZE][MAX_SIZE] *abacus, int c, int f) {
+void distribute_beads(int c, int f, int abacus[c][f], int *input) {
+	int val;
+	for (int i = 0; i < c; i++) {
+        val = input[i];
+        for (int j = 0; j < f; j++) {
+            if( j < val) {
+                abacus[i][j] = 1;
+            } else {
+                abacus[i][j] = 0;
+            }
+        }
+        printf("\n");
+    }
+}
 
+void show_matrix(int a, int b, int matrix[a][a]) {
+    for (int i = 0; i < a; i++) {
+        for (int j = 0; j < b; j++) {
+            printf("%i", matrix[a][b]);
+        }
+        printf("\n");
+    }
+}
+
+void show_array(int n, int *array) {
+    for (int i = 0; i < n; i++) {
+        printf("%i ", array[n]);
+    }
+}
+
+void gravity(int c, int f, int abacus[c][f]) {
+    for (int j = 0; j < f; j++) {
+        for (int i = 1; i < c; i++) {
+            int val_previous = abacus[i-1][j];
+            int val_current = abacus[i][j];
+            if (val_previous == 1 && val_current == 0) {
+                abacus[i-1][j] = 0;
+                abacus[i][j] = 1;
+                i = 0;
+            }
+        }
+    }
+}
+
+void count(int c, int f, int abacus[c][f], int *output) {
+    int val;
+    for (int i = 1; i < c; i++) {
+        for (int j = 0; j < f; j++) {
+            if (abacus[i][j] == 1) {
+                val++;
+            }
+            if (abacus[i][j] == 0) {
+                break;
+            }
+        }
+        
+        printf("%i ", val);
+        output[i] = val;
+    }
 }
 
 int main() {
-    int input[] = {1, 9, 32, 14, 43, 5, 24};
     int n = 7;
-    int abacus[MAX_SIZE][MAX_SIZE];
-    
+    int input[] = {1, 9, 32, 14, 43, 5, 24};
+    int output[n];
     int c = abacus_c(input, n);
     int f = abacus_f(input, n);
+    int abacus[f][c];
     
-    distribute_beads(input, abacus, c, f);
+    distribute_beads(c, f, abacus, input);
     
+    gravity(c, f, abacus);
     
+    show_matrix(c, f, abacus);
+    
+    count(c, f, abacus, output);
+    
+    show_array(n, output);
     
     return 0;
 }

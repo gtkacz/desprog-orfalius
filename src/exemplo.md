@@ -3,7 +3,7 @@ Gravity sort
 
 
 
-![](C:\Users\Dual Stream\Downloads\vambora\vambora\src\gravitysort.png)
+![](..\src\gravitysort.png)
 
 
 
@@ -62,44 +62,55 @@ int abaco[c][f] = { {0, 1, 0, 0, 0},
                     {1, 0, 1, 1, 0} };
 ```
 
-  Portanto o primeiro objetivo consiste em obter os valores de c e f e "construir" o ábaco para, posteriormente, distribuir as contas.
+  Portanto o primeiro objetivo consiste em obter os valores de **c** e **f** e "construir" o ábaco para, posteriormente, distribuir as contas.
 
   Obter o valor de **c** é uma tarefa razoávelmente simples, uma vez que este se resume em contar a quantidade de valores a serem distribuídos no ábaco. Um abordagem razóavel é contar quantos elementos estão disponíveis dentro do array inicial:
 
 ```c
-int abacus_c(int[] input, int n){
+int abacus_c(int *input, int n){
 	int c = 0;
 	for (int i = 0; i < n; i++) {
         c ++;
     }
-}
-	return n
-```
-
-Como em C esse valor é fornecido ao passar um array, a tarefa se torna ainda mais simples,  se tornando simplesmente:
-
-```c
-int abacus_c(int[] input, int n) {
-    return n
+	return n;
 }
 ```
 
-Já o valor de **f** exige um pouco mais de trabalho, pois a quantidade de fileiras deve ser tal que não falte ao distribuir horizontalmente as contas. Uma abordagem razoável seria buscar pelo maior valor do array inicial, garantindo que não falte espaço para os demais valores do array:
+Como em C o tamanho de um array é passado para funções como parâmetro, a tarefa se torna ainda mais simples,  se tornando simplesmente:
 
 ```c
-int abacus_f(int[] input, int n):
+int abacus_c(int *input, int n) {
+    return n;
+}
+```
+
+Já o valor de **f** exige um pouco mais de trabalho, pois a quantidade de fileiras deve ser tal que não falte ao distribuir horizontalmente as contas. Uma abordagem razoável seria buscar pelo maior valor do array inicial, garantindo que não falte espaço para os demais valores:
+
+```c
+int abacus_f(int *input, int n) {
 	int f = 0;
 	for (int i = 0; i < n; i++) {
         if (input[i] > f) {
-            f = input[i]
+            f = input[i];
 		}
     }
 	return f;
+}
 ```
 
-Note que, em escopo geral, as funções `abacus_c` e `abacus_f` são, respectivamente, as funções `len` e `max`.
+??? Pergunta
 
-Com ambos os valores disponíveis podemos por fim, contruir o ábaco, inicializando uma matriz $$M_{cf} $$ com zeros:
+Em um contexto mais geral, quais as funções básicas poderiam substituir as funções `abacus_c`  e `abacus_f`?
+
+::: Gabarito
+
+Respectivamente as funções `len` e `max`
+
+:::
+
+???
+
+Com ambos os valores disponíveis podemos por fim, contruir o ábaco, inicializando uma matriz $$M_{cf}$$ com zeros:
 
 ```c
 int c = abacus_c(input, n);
@@ -107,18 +118,150 @@ int f = abacus_f(input, n);
 int abacus[c][f];
 ```
 
-Partindo agora para a segunda parte, devemos distribuir as contas referentes a cada um dos valores do array inicial, de tal forma que a quantidade de contas verticalmente empilhadas corresponda ao valor do a rray inicial. A função  que descreveria esse procedimento está descrita abaixo:
+Partindo agora para a segunda parte, devemos distribuir as contas referentes a cada um dos valores do array inicial, de tal forma que a quantidade de contas verticalmente empilhadas corresponda ao valor do a rray inicial. O cabeçalho da função que descreveria esse procedimento está descrita abaixo:
+
+````c
+void distribute_beads(int c, int f, int *input, int abacus[c][f] ) {
+
+}
+````
+
+
 
 ```c
-void distribute_beads(int[] input, int[][] *abacus, int c, int f) {
+void distribute_beads(int c, int f, int *input, int abacus[MAX_SIZE][MAX_SIZE] ) {
 }
 ```
 
-#TODO:
+??? Pergunta
 
-Pergunta: por que o valor de n não foi passado para a função?
+Por que na função `distribute_beads` o valor **n** referente ao tamanho do array `input` não é passado como parâmetro da função?
 
-Resposta: por que c=n
+::: Gabarito
+
+Por que **c** = **n**
+
+:::
+
+???
+
+É razoável pensar que, para acessarmos os valores da matriz que representa o ábaco, precisaríamos de dois laços de repetição, um aninhado no outro. Para facilitar e melhor compreender a dinâmica envolvendo a distribuição de contas, vamos implementar cada um dos laços separadamente.
+
+!!! Dica
+
+Para facilitar a visualização da sua matriz conforme for realizando as atividades a seguir, utilize a função a abaixo:
+
+```c
+void show_matrix(int c, int f, int abacus[c][f]) {
+    for (int i = 0; i < c; i++) {
+        for (int j = 0; j < f; j++) {
+            printf("%i", abacus[i][j]);
+        }
+        printf("\n");
+    }
+}
+```
+
+!!!
+
+??? Atividade 1
+
+Desenvolva a função `distribute_beads` de modo que ela acesse cada um dos valores do *array* `input` e exiba seus valores.
+
+::: Gabarito
+
+````c
+	int val;
+	for (int i = 0; i < c; i++) {
+        val = input[i];
+        printf("%i\n", val);
+    }
+````
+
+:::
+
+???
+
+??? Atividade 2
+
+Desenvolva a função `distribute_beads` de modo que ela acesse cada um dos valores do *array* `input` e exiba uma fileira de  ***** referente a cada valor.
+
+::: Gabarito
+
+````c
+	int val;
+	for (int i = 0; i < c; i++) {
+        val = input[i];
+        for (int j = 0; i < val; i++) {
+            printf("*");
+        }
+        printf("\n");
+    }
+````
+
+:::
+
+???
+
+??? Atividade 3
+
+Desenvolva a função `distribute_beads` de modo que ela acesse cada um dos valores do *array* `input` e exiba uma fileira de  `1` referente a cada valor e preencha com `0` até atingir **f**.
+
+::: Gabarito
+
+````c
+	int val;
+	for (int i = 0; i < c; i++) {
+        val = input[i];
+        for (int j = 0; j < f; j++) {
+            if( j < val) {
+                printf("1");
+            } else {
+                printf("0");
+            }
+        }
+        printf("\n");
+    }
+````
+
+:::
+
+???
+
+??? Atividade 4
+
+Desenvolva a função `distribute_beads` de modo que ela acesse cada um dos valores do *array* `input` e insira na matriz `abacus` uma fileira de  `1` referente a cada valor e preenchida com `0` até atingir **f**.
+
+::: Gabarito
+
+````c
+	int val;
+	for (int i = 0; i < c; i++) {
+        val = input[i];
+        for (int j = 0; j < f; j++) {
+            if( j < val) {
+                abacus[j][i] = 1;
+            } else {
+                abacus[j][i] = 0;
+            }
+        }
+        printf("\n");
+    }
+````
+
+:::
+
+???
+
+Nada muito difícil não é mesmo? Por fim, basta aplicarmos "gravidade" à matriz `abacus` para não só termos o *array* ordenado mas também utilizando apenas uma modificação, o que resulta em complexidade $$O(1)$$.
+
+Mas... como implementamos "gravidade" mesmo?
+
+
+
+
+
+
 
 Sabemos que o primeiro loop é tal que acessa cada um dos valores do array inicial e cada um das colunas da matriz do ábaco, portanto sua implementação é 
 
@@ -133,6 +276,59 @@ for (int i = 0; i < c; i++) {
     
 }
 ```
+
+
+
+```c
+#include <stdio.h>
+
+int abacus_c(int[] input, int n){
+	int c = 0;
+	for (int i = 0; i < n; i++) {
+        c ++;
+    }
+	return n
+}
+
+int abacus_f(int[] input, int n) {
+	int f = 0;
+	for (int i = 0; i < n; i++) {
+        if (input[i] > f) {
+            f = input[i]
+		}
+    }
+	return f;
+}
+
+void distribute_beads(int[] input, int[MAX_SIZE][MAX_SIZE] *abacus, int c, int f) {
+
+}
+
+int main() {
+    int input[] = {1, 9, 32, 14, 43, 5, 24};
+    int n = 7;
+    int abacus[MAX_SIZE][MAX_SIZE];
+    
+    int c = abacus_c(input, n);
+    int f = abacus_f(input, n);
+    
+    distribute_beads(input, abacus, c, f);
+    
+    
+    
+    return 0;
+}
+```
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -164,10 +360,8 @@ Definimos um array  que consta todos os itens - ou "bolinhas" - da matriz, sendo
 Apos essa operacao, realizamos uma chamada de **calloc**, para alocar memoria no heap de acordo com o tamanho do array de "bolinhas", criando o espaco necessario para a matriz.
 
 !!! Aviso
-Tem algumas diferencas no uso de *malloc* e *calloc*. Pesquise a respeito.
+Tem algumas diferenças no uso de *malloc* e *calloc*. Pesquise a respeito.
 !!!
-
-Fiz ate aqui rei Arthur e compadre Tkacz. Tentem continuar falando passo a passo do codigo.
 
 ```c
 #include <stdio.h>
@@ -274,7 +468,6 @@ Se não especificar nenhuma, o código fica com colorização de terminal.
 ```
 hello world
 ```
-
 
 !!! Aviso
 Este é um exemplo de aviso, entre `md !!!`.

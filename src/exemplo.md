@@ -499,58 +499,19 @@ e imagens. Lembre que todas as imagens devem estar em uma subpasta img.
 
 ![](C:\Users\Dual Stream\Downloads\vambora\vambora\src\logo.png)
 
-Para tabelas, usa-se a [notação do
-MultiMarkdown](https://fletcher.github.io/MultiMarkdown-6/syntax/tables.html),
-que é muito flexível. Vale a pena abrir esse link para saber todas as
-possibilidades.
+Complexidade de tempo
+---------
 
+As implementações analógica e de hardware podem atingir complexidade de O(n); entretanto, a implementação desse algoritmo tende a ser significativamente mais lenta no software e só pode ser usado para classificar listas de inteiros positivos.
 
-| coluna a | coluna b |
-| -------- | -------- |
-| 1        | 2        |
+A complexidade do tempo de execução do algoritmo varia de O(1) a O(S), sendo S a soma dos números de entrada, dependendo da perspectiva do usuário. Finalmente, depende de uma das três implementações possíveis do algoritmo.
 
-Ao longo de um texto, você pode usar itálico, *negrito*, {red}(vermelho) e
-[[tecla]]. Também pode usar uma equação LaTeX: $f(n) \leq g(n)$. Se for muito
-grande, você pode isolá-la em um parágrafo.
+1. Para O(1): Soltar todos os contas simultaneamente. Essa complexidade não pode ser implementada na prática.
+2. Para O(√n): Em um modelo físico realista que usa a gravidade, o tempo que se leva para deixar os contas caírem é proporcional à raiz quadrada da altura máxima, que é proporcional a n.
+3. Para O(n): Os contas são movidos uma linha de cada vez. É o caso das soluções analógica e de hardware.
+4. Para O(S): Cada conta é movido individualmente. Este é o caso quando a classificação de contas é implementada sem um mecanismo para auxiliar na localização de espaços vazios abaixo dos mesmo. É o caso das implementações de software.
 
-$$\lim_{n \rightarrow \infty} \frac{f(n)}{g(n)} \leq 1$$
+Complexidade de memória
+---------
 
-Para inserir uma animação, use `md ;` seguido do nome de uma pasta onde as
-imagens estão. Essa pasta também deve estar em img.
-
-;bubble
-
-Você também pode inserir código, inclusive especificando a linguagem.
-
-
-```py
-def f():
-print('hello world')
-```
-
-```c
-void f() {
-printf("hello world\n");
-}
-```
-
-Se não especificar nenhuma, o código fica com colorização de terminal.
-
-```
-hello world
-```
-
-!!! Aviso
-Este é um exemplo de aviso, entre `md !!!`.
-!!!
-
-
-??? Exercício
-
-Este é um exemplo de exercício, entre `md ???`.
-
-::: Gabarito
-Este é um exemplo de gabarito, entre `md :::`.
-:::
-
-???
+O gravity sort é detentor de recordes quanto ao desperdício de memória. Os custos de memória extra excedem os custos de armazenamento do próprio array. Sua complexidade de memória é O(n^2) em média.
